@@ -20,6 +20,8 @@
 		884A32741F34F37000E6A40B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 884A32731F34F37000E6A40B /* Main.storyboard */; };
 		885BCEE21F3B5CE800150136 /* VideoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 885BCEE11F3B5CE800150136 /* VideoManager.m */; };
 		9FCB02779C5E375DCC8613CF /* libPods-SDLStreamingVideoExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D257104DE9B0E3407E10E4C /* libPods-SDLStreamingVideoExample.a */; };
+		C7AEE5512483AA3E00BA6941 /* example.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C7AEE54F2483AA3D00BA6941 /* example.mp3 */; };
+		C7AEE5522483AA3E00BA6941 /* eine.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C7AEE5502483AA3D00BA6941 /* eine.mp3 */; };
 		F163FDC717F54237019025DB /* libPods-SDLStreamingVideoExampleUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E017ADAA6F0F3A00E19F8BE /* libPods-SDLStreamingVideoExampleUITests.a */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +72,8 @@
 		9C6E840B3312C5E5B05EE9E3 /* libPods-SDLStreamingVideoExampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SDLStreamingVideoExampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5DCF363EBFCFE36C34EC03E /* Pods-SDLStreamingVideoExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDLStreamingVideoExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SDLStreamingVideoExampleTests/Pods-SDLStreamingVideoExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		C613972DA864C02FF1890BF6 /* Pods-SDLStreamingVideoExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDLStreamingVideoExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-SDLStreamingVideoExample/Pods-SDLStreamingVideoExample.release.xcconfig"; sourceTree = "<group>"; };
+		C7AEE54F2483AA3D00BA6941 /* example.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = example.mp3; sourceTree = "<group>"; };
+		C7AEE5502483AA3D00BA6941 /* eine.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = eine.mp3; sourceTree = "<group>"; };
 		D9E4D074F5965CF63B7A16B0 /* Pods-SDLStreamingVideoExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDLStreamingVideoExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SDLStreamingVideoExample/Pods-SDLStreamingVideoExample.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -208,6 +212,8 @@
 			isa = PBXGroup;
 			children = (
 				88137A8C1F3E011700342220 /* DrivingAtNight.m4v */,
+				C7AEE5502483AA3D00BA6941 /* eine.mp3 */,
+				C7AEE54F2483AA3D00BA6941 /* example.mp3 */,
 			);
 			name = "Video Assets";
 			sourceTree = "<group>";
@@ -328,6 +334,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -349,9 +356,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				88137A8D1F3E018D00342220 /* DrivingAtNight.m4v in Resources */,
+				C7AEE5512483AA3E00BA6941 /* example.mp3 in Resources */,
 				884A32741F34F37000E6A40B /* Main.storyboard in Resources */,
 				884A32461F34F28E00E6A40B /* LaunchScreen.storyboard in Resources */,
 				884A32431F34F28E00E6A40B /* Assets.xcassets in Resources */,
+				C7AEE5522483AA3E00BA6941 /* eine.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

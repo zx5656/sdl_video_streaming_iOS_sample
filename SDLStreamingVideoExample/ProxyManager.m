@@ -12,8 +12,8 @@
 
 NSString *const SDLAppName = @"SDLVideo";
 NSString *const SDLAppId = @"2776";
-NSString *const SDLIPAddress = @"192.168.1.61";
-UInt16 const SDLPort = (UInt16)2776;
+NSString *const SDLIPAddress = @"192.168.128.103";
+UInt16 const SDLPort = (UInt16)12345;
 
 BOOL const ShouldRestartOnDisconnect = NO;
 
@@ -76,10 +76,11 @@ NS_ASSUME_NONNULL_BEGIN
     if (self.sdlManager) { return; }
 
     // To stream video, the app type must be "Navigation". Video will not work with other app types.
-    SDLLifecycleConfiguration *lifecycleConfig = [self.class sdlex_setLifecycleConfigurationPropertiesOnConfiguration:[SDLLifecycleConfiguration defaultConfigurationWithAppName:SDLAppName appId:SDLAppId]];
+    SDLLifecycleConfiguration *lifecycleConfig = [self.class sdlex_setLifecycleConfigurationPropertiesOnConfiguration:[SDLLifecycleConfiguration defaultConfigurationWithAppName:SDLAppName fullAppId:SDLAppId]];
 
     // Navigation apps must have a SDLStreamingMediaConfiguration
-    SDLConfiguration *config = [SDLConfiguration configurationWithLifecycle:lifecycleConfig lockScreen:[SDLLockScreenConfiguration enabledConfiguration] logging:[[self class] sdlex_logConfiguration] streamingMedia:[SDLStreamingMediaConfiguration insecureConfiguration]];
+    SDLConfiguration *config = [SDLConfiguration configurationWithLifecycle:lifecycleConfig lockScreen:[SDLLockScreenConfiguration enabledConfiguration] logging:[[self class] sdlex_logConfiguration] streamingMedia:[SDLStreamingMediaConfiguration insecureConfiguration]
+        fileManager:[SDLFileManagerConfiguration defaultConfiguration]];
 
     self.sdlManager = [[SDLManager alloc] initWithConfiguration:config delegate:self];
 
@@ -94,10 +95,10 @@ NS_ASSUME_NONNULL_BEGIN
     if (self.sdlManager) { return; }
 
     // To stream video, the app type must be "Navigation". Video will not work with other app types.
-    SDLLifecycleConfiguration *lifecycleConfig = [self.class sdlex_setLifecycleConfigurationPropertiesOnConfiguration:[SDLLifecycleConfiguration debugConfigurationWithAppName:SDLAppName appId:SDLAppId ipAddress:SDLIPAddress port:SDLPort]];
+    SDLLifecycleConfiguration *lifecycleConfig = [self.class sdlex_setLifecycleConfigurationPropertiesOnConfiguration:[SDLLifecycleConfiguration debugConfigurationWithAppName:SDLAppName fullAppId:SDLAppId ipAddress:SDLIPAddress port:SDLPort]];
 
     // Navigation apps must have a SDLStreamingMediaConfiguration
-    SDLConfiguration *config = [SDLConfiguration configurationWithLifecycle:lifecycleConfig lockScreen:[SDLLockScreenConfiguration enabledConfiguration] logging:[[self class] sdlex_logConfiguration] streamingMedia:[SDLStreamingMediaConfiguration insecureConfiguration]];
+    SDLConfiguration *config = [SDLConfiguration configurationWithLifecycle:lifecycleConfig lockScreen:[SDLLockScreenConfiguration enabledConfiguration] logging:[[self class] sdlex_logConfiguration] streamingMedia:[SDLStreamingMediaConfiguration insecureConfiguration] fileManager:[SDLFileManagerConfiguration defaultConfiguration]];
 
     self.sdlManager = [[SDLManager alloc] initWithConfiguration:config delegate:self];
 
@@ -250,8 +251,26 @@ NS_ASSUME_NONNULL_BEGIN
         [weakSelf sdlex_sendVideo:buffer];
         [VideoManager.sharedManager releasePixelBuffer:buffer];
     }];
+
+    // sdl_ios v6.3+
+    [self.sdlManager subscribeToRPC:SDLDidReceiveTouchEventNotification withObserver:self selector:@selector(touchEventAvailable:)];
+    
+    NSString *audioFilePath = [[NSBundle bundleForClass:[self class]] pathForResource:@"example" ofType:@"mp3"];
+    
+    [self.sdlManager.streamManager.audioManager pushWithFileURL:[[NSURL alloc] initFileURLWithPath:audioFilePath] forceInterrupt:false];
+    [self.sdlManager.streamManager.audioManager playNextWhenReady];
 }
 
+- (void)touchEventAvailable:(SDLRPCNotificationNotification *)notification {
+    if (![notification.notification isKindOfClass:SDLOnTouchEvent.class]) {
+      return;
+    }
+    
+    NSString *audioFilePath = [[NSBundle bundleForClass:[self class]] pathForResource:@"eine" ofType:@"mp3"];
+       
+    [self.sdlManager.streamManager.audioManager pushWithFileURL:[[NSURL alloc] initFileURLWithPath:audioFilePath] forceInterrupt:true];
+    [self.sdlManager.streamManager.audioManager playNextWhenReady];
+}
 /**
  *  Stops registering for a callback from the video player on each new video frame.
  */
@@ -274,3 +293,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+
